@@ -47,12 +47,18 @@ public class CmdAdmin implements CommandExecutor {
         }else{
             ItemMeta kickMeta = Main.getInstance().kickItem.getItemMeta();
             ArrayList<String> kickLore = new ArrayList<>();
-            kickLore.add("&aPermet de bannir un joueur en faisant un clique droit dessus !");
+            kickLore.add("&aPermet de kick un joueur en faisant un clique droit dessus !");
             kickMeta.setLore(kickLore);
             kickMeta.setUnbreakable(true);
             kickMeta.addEnchant(Enchantment.DAMAGE_ALL, 10, true);
-            kickMeta.setDisplayName(ChatColor.RED + "Baguette de bannissement");
+            kickMeta.setDisplayName(ChatColor.RED + "Baguette de kick");
             Main.getInstance().kickItem.setItemMeta(kickMeta);
+
+            Main.getInstance().flyMeta.setUnbreakable(true);
+            Main.getInstance().flyMeta.setDisplayName("§eBaguette de vol");
+            Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vol");
+            Main.getInstance().flyItem.setItemMeta(Main.getInstance().flyMeta);
+
 
 
             Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vanish");
@@ -65,12 +71,14 @@ public class CmdAdmin implements CommandExecutor {
             for (Player allPlayer : sender.getServer().getOnlinePlayers()){
                 allPlayer.hidePlayer(JavaPlugin.getPlugin(Main.class), p);
             }
+            Main.getInstance().FlyingPlayers.add(p);
             p.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300000000, 1));
             p.setAllowFlight(true);
             p.setInvulnerable(true);
             p.sendMessage("§aTu viens de passer en mode Admin.");
             p.getInventory().setItem(0, Main.getInstance().kickItem);
             p.getInventory().setItem(1, Main.getInstance().vanishItem);
+            p.getInventory().setItem(2, Main.getInstance().flyItem);
         }
         return true;
     }

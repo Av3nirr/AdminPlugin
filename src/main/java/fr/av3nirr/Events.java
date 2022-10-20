@@ -37,7 +37,7 @@ public class Events implements Listener {
         //La condition ne s'enclanche pas avec un ==, il faut tester avec un .equals()
         if (Objects.equals(p.getItemInHand(), Main.getInstance().kickItem)) {
             target.kick();
-            p.sendMessage("§Vous avez correctement kick §r" + target.getName() + " §adu serveur !");
+            p.sendMessage("§aVous avez correctement kick §r" + target.getName() + " §adu serveur !");
         }
     }
     @EventHandler
@@ -58,7 +58,7 @@ public class Events implements Listener {
             }else {
                 Main.getInstance().vanishLore.clear();
                 Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vanish");
-                Main.getInstance().vanishLore.add("§fStatut: §aDésactivé");
+                Main.getInstance().vanishLore.add("§fStatut: §cDésactivé");
                 Main.getInstance().vanishMeta.setLore(Main.getInstance().vanishLore);
                 Main.getInstance().vanishItem.setItemMeta(Main.getInstance().vanishMeta);
                 p.getInventory().setItem(1, Main.getInstance().vanishItem);
@@ -66,6 +66,15 @@ public class Events implements Listener {
                 for (Player allPlayer : p.getServer().getOnlinePlayers()){
                     allPlayer.showPlayer(JavaPlugin.getPlugin(Main.class), p);
                 }
+            }
+        } else if (Objects.equals(p.getItemInHand(), Main.getInstance().flyItem)) {
+            if(Main.getInstance().FlyingPlayers.contains(p)){
+                p.setFlying(false);
+                p.setAllowFlight(false);
+                Main.getInstance().FlyingPlayers.remove(p);
+            }else{
+                p.setAllowFlight(true);
+                Main.getInstance().FlyingPlayers.add(p);
             }
         }
     }

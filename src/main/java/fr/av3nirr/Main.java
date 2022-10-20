@@ -18,12 +18,14 @@ public final class Main extends JavaPlugin {
     //Array
     public ArrayList<Player> Admins = new ArrayList<>();
     public ArrayList<String> vanishLore = new ArrayList<>();
+    public ArrayList<String> flylore = new ArrayList<>();
     public ArrayList<Player> VanishedPlayers = new ArrayList<>();
+    public ArrayList<Player> FlyingPlayers = new ArrayList<>();
 
     //Item
     public ItemStack kickItem = new ItemStack(Material.STICK);
     public ItemStack vanishItem = new ItemStack(Material.BLAZE_POWDER);
-    public ItemStack flyItem = new ItemStack(Material.LEAD);
+    public ItemStack flyItem = new ItemStack(Material.FEATHER);
 
     //Meta
     public ItemMeta vanishMeta = vanishItem.getItemMeta();
@@ -34,7 +36,7 @@ public final class Main extends JavaPlugin {
         // Assignation d'une valeur à INSTANCE
         INSTANCE = this;
 
-        // Registration de tes events et commandes
+        // Registration des events et commandes
         setCommands();
         setListeners();
 

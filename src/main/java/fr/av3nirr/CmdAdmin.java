@@ -19,10 +19,13 @@ import java.util.ArrayList;
 public class CmdAdmin implements CommandExecutor {
     public static ArrayList<Player> VanishedPlayers = new ArrayList<>();
     public static ArrayList<Player> Admins = new ArrayList<>();
+    public static ArrayList<String> vanishLore = new ArrayList<>();
     public static ItemStack kickItem = new ItemStack(Material.STICK);
     public  static ItemStack vanishItem = new ItemStack(Material.BLAZE_POWDER);
+    public static ItemStack flyItem = new ItemStack(Material.LEAD);
     public static ItemMeta vanishMeta = vanishItem.getItemMeta();
-    public static ArrayList<String> vanishLore = new ArrayList<>();
+    public static ItemMeta flyMeta = flyItem.getItemMeta();
+
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {

@@ -17,14 +17,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CmdAdmin implements CommandExecutor {
-    public static ArrayList<Player> VanishedPlayers = new ArrayList<>();
-    public static ArrayList<Player> Admins = new ArrayList<>();
-    public static ArrayList<String> vanishLore = new ArrayList<>();
-    public static ItemStack kickItem = new ItemStack(Material.STICK);
-    public  static ItemStack vanishItem = new ItemStack(Material.BLAZE_POWDER);
-    public static ItemStack flyItem = new ItemStack(Material.LEAD);
-    public static ItemMeta vanishMeta = vanishItem.getItemMeta();
-    public static ItemMeta flyMeta = flyItem.getItemMeta();
+
+
 
 
     @Override
@@ -37,9 +31,9 @@ public class CmdAdmin implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        if(Admins.contains(p)){
-            VanishedPlayers.remove(p);
-            Admins.remove(p);
+        if(Main.getInstance().Admins.contains(p)){
+            Main.getInstance().VanishedPlayers.remove(p);
+            Main.getInstance().Admins.remove(p);
             p.getInventory().clear();
             for (Player allPlayer : sender.getServer().getOnlinePlayers()){
                 allPlayer.showPlayer(JavaPlugin.getPlugin(Main.class), p);
@@ -48,31 +42,31 @@ public class CmdAdmin implements CommandExecutor {
             p.setInvulnerable(false);
             p.sendMessage("§aTu viens de désactiver le mode admin !");
         }else{
-            ItemMeta kickMeta = kickItem.getItemMeta();
+            ItemMeta kickMeta = Main.getInstance().kickItem.getItemMeta();
             ArrayList<String> kickLore = new ArrayList<>();
             kickLore.add("&aPermet de bannir un joueur en faisant un clique droit dessus !");
             kickMeta.setLore(kickLore);
             kickMeta.setUnbreakable(true);
             kickMeta.addEnchant(Enchantment.DAMAGE_ALL, 10, true);
             kickMeta.setDisplayName(ChatColor.RED + "Baguette de bannissement");
-            kickItem.setItemMeta(kickMeta);
+            Main.getInstance().kickItem.setItemMeta(kickMeta);
 
 
-            vanishLore.add("§aClique droit pour activer/désactiver le vanish");
-            vanishLore.add("§fStatut: §aActivé");
-            vanishMeta.setLore(vanishLore);
-            vanishMeta.setDisplayName("§cVanish");
-            vanishItem.setItemMeta(vanishMeta);
-            VanishedPlayers.add(p);
-            Admins.add(p);
+            Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vanish");
+            Main.getInstance().vanishLore.add("§fStatut: §aActivé");
+            Main.getInstance().vanishMeta.setLore(Main.getInstance().vanishLore);
+            Main.getInstance().vanishMeta.setDisplayName("§cVanish");
+            Main.getInstance().vanishItem.setItemMeta(Main.getInstance().vanishMeta);
+            Main.getInstance().VanishedPlayers.add(p);
+            Main.getInstance().Admins.add(p);
             for (Player allPlayer : sender.getServer().getOnlinePlayers()){
                 allPlayer.hidePlayer(JavaPlugin.getPlugin(Main.class), p);
             }
             p.setAllowFlight(true);
             p.setInvulnerable(true);
             p.sendMessage("§aTu viens de passer en mode Admin.");
-            p.getInventory().setItem(0, kickItem);
-            p.getInventory().setItem(1, vanishItem);
+            p.getInventory().setItem(0, Main.getInstance().kickItem);
+            p.getInventory().setItem(1, Main.getInstance().vanishItem);
         }
         return true;
     }

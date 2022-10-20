@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -34,6 +36,7 @@ public class CmdAdmin implements CommandExecutor {
         if(Main.getInstance().Admins.contains(p)){
             Main.getInstance().VanishedPlayers.remove(p);
             Main.getInstance().Admins.remove(p);
+            p.removePotionEffect(PotionEffectType.GLOWING);
             p.getInventory().clear();
             for (Player allPlayer : sender.getServer().getOnlinePlayers()){
                 allPlayer.showPlayer(JavaPlugin.getPlugin(Main.class), p);
@@ -62,6 +65,7 @@ public class CmdAdmin implements CommandExecutor {
             for (Player allPlayer : sender.getServer().getOnlinePlayers()){
                 allPlayer.hidePlayer(JavaPlugin.getPlugin(Main.class), p);
             }
+            p.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300000000, 1));
             p.setAllowFlight(true);
             p.setInvulnerable(true);
             p.sendMessage("§aTu viens de passer en mode Admin.");

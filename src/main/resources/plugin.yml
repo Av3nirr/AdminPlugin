@@ -1,0 +1,12 @@
+name: AdminController
+version: '${project.version}'
+main: fr.av3nirr.Main
+api-version: 1.18
+commands:
+  admin:
+    descritpion: "Activer/Désactiver le mode admin"
+    permission: admincontroller.admin
+    permission-message: '§cErreur, tu ne peux pas faire ça !'
+
+
+

@@ -1,24 +1,16 @@
 package fr.av3nirr;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Item;
+import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.awt.*;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.Objects;
 
 public class Events implements Listener {
@@ -31,6 +23,15 @@ public class Events implements Listener {
 
     }
     @EventHandler
+    public void onPlayerMoove(PlayerMoveEvent e){
+        Player p = e.getPlayer();
+        if(Main.getInstance().freezedPlayers.contains(p)){
+            e.setCancelled(true);
+            p.sendMessage("§cTu ne peux pas bouger !");
+            p.sendTitle("§Tu es Freeze !", "§fVa sur le discord: discord", 1, 10, 1);
+        }
+    }
+    @EventHandler
     public  void onRightClick(PlayerInteractAtEntityEvent e){
         Player p = e.getPlayer();
         Player target = (Player) e.getRightClicked();
@@ -38,6 +39,10 @@ public class Events implements Listener {
         if (Objects.equals(p.getItemInHand(), Main.getInstance().kickItem)) {
             target.kick();
             p.sendMessage("§aVous avez correctement kick §r" + target.getName() + " §adu serveur !");
+        }else if(Objects.equals(p.getItemInHand(), Main.getInstance().vanishItem)){
+            Main.getInstance().freezedPlayers.add(target);
+            target.sendMessage("§bVous venez d'être Freeze par §e" + p.getName());
+            p.sendMessage("§aVous venez de Freeze §e" + target.getName());
         }
     }
     @EventHandler
@@ -72,10 +77,17 @@ public class Events implements Listener {
                 p.setFlying(false);
                 p.setAllowFlight(false);
                 Main.getInstance().FlyingPlayers.remove(p);
+                p.sendMessage("§cFly désactivé !");
             }else{
                 p.setAllowFlight(true);
                 Main.getInstance().FlyingPlayers.add(p);
+                p.sendMessage("§aFly activé !");
             }
+        } else if (Objects.equals(p.getItemInHand(), Main.getInstance().randomTpItem)){
+            int nombreAleatoire = (int) (Math.random() * ((p.getServer().getOnlinePlayers().size()) + 1));
+            Player target = (Player) p.getServer().getOnlinePlayers().toArray()[nombreAleatoire];
+            p.teleport(target);
+            p.sendMessage("§cTu as été téléporté au joueur §f" + p.getName());
         }
     }
 }

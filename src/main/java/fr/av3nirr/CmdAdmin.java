@@ -56,10 +56,17 @@ public class CmdAdmin implements CommandExecutor {
 
             Main.getInstance().flyMeta.setUnbreakable(true);
             Main.getInstance().flyMeta.setDisplayName("§eBaguette de vol");
-            Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vol");
+            Main.getInstance().flylore.add("§aClique droit pour activer/désactiver le vol");
             Main.getInstance().flyItem.setItemMeta(Main.getInstance().flyMeta);
 
+            Main.getInstance().randomTpMeta.setUnbreakable(true);
+            Main.getInstance().randomTpMeta.setDisplayName("§2Se téléporter à un joueur");
+            Main.getInstance().randomTpLore.add("§aClique droit pour te téléporter à un joueur aléatoire.");
+            Main.getInstance().randomTpItem.setItemMeta(Main.getInstance().randomTpMeta);
 
+            Main.getInstance().freezeMeta.setUnbreakable(true);
+            Main.getInstance().freezeMeta.setDisplayName("§cFreeze");
+            Main.getInstance().freezeItem.setItemMeta(Main.getInstance().freezeMeta);
 
             Main.getInstance().vanishLore.add("§aClique droit pour activer/désactiver le vanish");
             Main.getInstance().vanishLore.add("§fStatut: §aActivé");
@@ -79,6 +86,8 @@ public class CmdAdmin implements CommandExecutor {
             p.getInventory().setItem(0, Main.getInstance().kickItem);
             p.getInventory().setItem(1, Main.getInstance().vanishItem);
             p.getInventory().setItem(2, Main.getInstance().flyItem);
+            p.getInventory().setItem(3, Main.getInstance().randomTpItem);
+            p.getInventory().setItem(4, Main.getInstance().freezeItem);
         }
         return true;
     }

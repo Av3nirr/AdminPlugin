@@ -19,17 +19,23 @@ public final class Main extends JavaPlugin {
     public ArrayList<Player> Admins = new ArrayList<>();
     public ArrayList<String> vanishLore = new ArrayList<>();
     public ArrayList<String> flylore = new ArrayList<>();
+    public ArrayList<String> randomTpLore = new ArrayList<>();
     public ArrayList<Player> VanishedPlayers = new ArrayList<>();
     public ArrayList<Player> FlyingPlayers = new ArrayList<>();
+    public ArrayList<Player> freezedPlayers = new ArrayList<>();
 
     //Item
     public ItemStack kickItem = new ItemStack(Material.STICK);
     public ItemStack vanishItem = new ItemStack(Material.BLAZE_POWDER);
     public ItemStack flyItem = new ItemStack(Material.FEATHER);
+    public ItemStack randomTpItem = new ItemStack(Material.ENDER_PEARL);
+    public ItemStack freezeItem = new ItemStack(Material.BLUE_ICE);
 
     //Meta
     public ItemMeta vanishMeta = vanishItem.getItemMeta();
+    public ItemMeta freezeMeta = freezeItem.getItemMeta();
     public ItemMeta flyMeta = flyItem.getItemMeta();
+    public ItemMeta randomTpMeta = randomTpItem.getItemMeta();
 
     @Override
     public void onEnable() {
